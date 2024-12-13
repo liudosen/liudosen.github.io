@@ -1,538 +1,185 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-  <head>
-    <meta charset="utf8" />
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <title>
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Liudosen - 个人博客</title><meta name="author" content="Liudosen"><meta name="copyright" content="Liudosen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Liudosen">
+<meta property="og:url" content="https://liudosen.github.io/index.html">
+<meta property="og:site_name" content="Liudosen">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://liudosen.github.io/image/%E5%A4%B4%E5%83%8F.png">
+<meta property="article:author" content="Liudosen">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://liudosen.github.io/image/%E5%A4%B4%E5%83%8F.png"><link rel="shortcut icon" href="/image/code.png"><link rel="canonical" href="https://liudosen.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
       
-        liudosen.site
-      
-    </title>
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    
-      <link rel="apple-touch-icon"
-            sizes="180x180"
-            href="/images/apple-touch-icon.png" />
-    
-    
-      <link rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/images/favicon-32x32.png" />
-    
-    
-      <link rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/images/favicon-16x16.png" />
-    
-    
-      <link rel="mask-icon"
-            href="/images/logo.svg"
-            color="" />
-    
-    
-    
-      
-  <style>
-    @font-face {
-        font-family:sourceHanSerif;
-        src: url(/font/normal.ttf);
-        font-weight: normal;
-    }
-  </style>
-
-  <style>
-    @font-face {
-        font-family:sourceHanSerif;
-        src: url(/font/bold.ttf);
-        font-weight: bold;
-    }
-  </style>
-
-
-    
-    <link rel="stylesheet"
-          type="text/css"
-          href='/css/layout.css' />
-    
-    
-  
-  <link rel="stylesheet"
-        type="text/css"
-        href='/css/index.css'/>
-
-  <meta name="generator" content="Hexo 7.3.0"></head>
-  <body>
-    
-      <div id="search-mask" style="display:none">
-  <div class="search-main" id="search-main">
-    <div class="search__head">
-      <div class="search-form">
-        <svg t="1706347533072"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             version="1.1"
-             xmlns="http://www.w3.org/2000/svg"
-             p-id="7828"
-             width="20"
-             height="20">
-          <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
-          </path>
-        </svg>
-        <input id="search-input" placeholder="搜索文章">
-        <svg t="1706361500528"
-             id="search-clear"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             version="1.1"
-             xmlns="http://www.w3.org/2000/svg"
-             p-id="4351"
-             width="20"
-             height="20">
-          <path d="M512 562.688l-264.2944 264.2944-50.688-50.688L461.312 512 197.0176 247.7056l50.688-50.688L512 461.312l264.2944-264.2944 50.688 50.688L562.688 512l264.2944 264.2944-50.688 50.688L512 562.688z" fill="#00" p-id="4352">
-          </path>
-        </svg>
-      </div>
-    </div>
-    <div class="search__body" id="search-result"></div>
-    <div class="search__foot"></div>
-  </div>
-</div>
-
-    
-    
-    <div class=head>
-      <div class="nav">
-        <a href='/' class="nav-logo">
-          <img alt="logo" height="60px" width="60px" src="/images/logo.svg" />
-        </a>
-        <input id="navBtn" type="checkbox" />
-        <div class="nav-right">
-          
-            <div class="search-outer">
-  <div class="search" id="search-btn">
-    <svg t="1706347533072"
-         class="icon"
-         viewBox="0 0 1024 1024"
-         version="1.1"
-         xmlns="http://www.w3.org/2000/svg"
-         p-id="7828"
-         width="20"
-         height="20">
-      <path d="M685.6 660.336l155.152 155.168a16 16 0 0 1 0 22.624l-11.312 11.328a16 16 0 0 1-22.624 0l-158.528-158.544a289.792 289.792 0 0 1-165.152 51.36C322.336 742.256 192 611.904 192 451.12 192 290.336 322.336 160 483.136 160c160.784 0 291.12 130.336 291.12 291.136 0 82.112-33.984 156.272-88.672 209.2z m-202.464 33.92c134.272 0 243.12-108.848 243.12-243.12C726.256 316.848 617.408 208 483.136 208 348.848 208 240 316.848 240 451.136c0 134.272 108.848 243.12 243.136 243.12z" fill="#000000" p-id="7829">
-      </path>
-    </svg>
-    <span>搜索</span>
-    <span class="search-shortcut-key">Ctrl K</span>
-  </div>
-</div>
-
-          
-          <div class="nav-menu">
-            
-              
-                <a class="nav-menu-item" href="/WEB3">WEB3</a>
-              
-                <a class="nav-menu-item" href="/life">生活</a>
-              
-            
-            
-          </div>
-        </div>
-        <label class="nav-btn" for="navBtn"></label>
-      </div>
-    </div>
-    <div class="body">
-      
-  <div class="wall wall-index">
-    <div class="wall-main" id="wall-main">
-      <div class="wall-title">LIUDOSEN.SITE</div>
-      <div class="wall-subtitle">Dosen的主页</div>
-      <div class="wall-description">“进步最好时机永远是当下。Doing now.”</div>
-    </div>
-    <div class="wall-bg">
-      <div class="wall-bg-index">
-        <div class="hello-world">
-          <div>> Hello world</div>
-          <div class="cursor"></div>
-        </div>
-        <div class="normal-eqt">
-          <img alt="normal" width="300px" height="" src="/images/normal.svg"/>
-        </div>
-        <canvas width="400" height="400" id="heart-curve"></canvas>
-        <div class="motto">长风破浪会有时！</div>
-        <div class="poem">
-          
-            君不见高堂明镜悲白发
-            <br/>
-          
-            朝如青丝暮成雪
-            <br/>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="about">
-    <div class="about-photo"
-         style="background-image: url(/images/001.jpg)"></div>
-    <div class="about-text">
-      <div class="about-title">
-        
-          <div class="matts">我</div>
-        
-      </div>
-      <div class="about-detail">
-        <div class="about-text-p">
-          
-            
-              摩羯座 INTJ
-              <br/>
-            
-          
-            
-              <br/>
-            
-          
-            
-              热衷于跟随新技术
-              <br/>
-            
-          
-            
-              <br/>
-            
-          
-            
-              对于个人向往内心的平和
-              <br/>
-            
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  
-    <div class="timeline">
-      <div class="timeline-head">
-        <div class="title">时间线</div>
-        <div class="radio-wrapper">
-          
-            <div class="radio">
-              <input id="radio-life"
-                     type="checkbox"
-                     checked/>
-              <label class="radio-skin--life" for="radio-life"></label>
-            </div>
-          
-            <div class="radio">
-              <input id="radio-web3"
-                     type="checkbox"
-                     checked/>
-              <label class="radio-skin--web3" for="radio-web3"></label>
-            </div>
-          
-        </div>
-      </div>
-      <div class="timeline-body">
-        <div class="timeline-item-first">
-          <div class="line-anchor line-anchor--now"></div>
-        </div>
-        <div class="timeline-list" id="timeline-list"></div>
-        <div class="timeline-item-last">
-          <div class="line-anchor line-anchor--end"></div>
-        </div>
-      </div>
-    </div>
-  
-
-    </div>
-    <div class="foot">
-  <div class="foot-inner">
-    <div class="foot__head">
-      
-        <div class="foot-line">
-          <div class="matts">人</div><div class="matts">生</div><div class="matts">如</div><div class="matts">梦</div><div class="matts">，</div><div class="matts">岁</div><div class="matts">月</div><div class="matts">如</div><div class="matts">歌</div><div class="matts">，</div><div class="matts">精</div><div class="matts">神</div><div class="matts">世</div><div class="matts">界</div><div class="matts">是</div><div class="matts">心</div><div class="matts">灵</div><div class="matts">的</div><div class="matts">归</div><div class="matts">宿</div><div class="matts">，</div><div class="matts">也</div><div class="matts">是</div><div class="matts">灵</div><div class="matts">魂</div><div class="matts">的</div><div class="matts">港</div><div class="matts">湾</div><div class="matts">。</div>
-        </div>
-      
-    </div>
-    <div class="foot__body">
-      
-      
-        <div class="foot-item">
-          <div class="foot-item__head">账号</div>
-          <div class="foot-item__body">
-            
-
-
-  
-  
-    <div class="foot-link-group">
-      
-        
-        
-          <div class="text">
-            <img alt="link"
-                 height="20px"
-                 width="20px"
-                 src="/images/logo-github.svg" />
-            <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/liudosen">liudosen</a>
-          </div>
-        
-      
-        
-        
-      
-        
-        
-      
-        
-        
-      
-    </div>
-  
-
-
-          </div>
-        </div>
-      
-      <div class="foot-item">
-        <div class="foot-item__head">联系</div>
-        <div class="foot-item__body">
-          
-
-
-  
-  
-    <div class="foot-link-group">
-      
-        
-        
-          <div class="text">
-            <img alt="link"
-                 height="20px"
-                 width="20px"
-                 src="/images/icon/icon-email.svg" />
-            <a class="foot-link" href="liudosen@outlook.com">liudosen@outlook.com</a>
-          </div>
-        
-      
-        
-        
-      
-        
-        
-      
-        
-        
-      
-    </div>
-  
-
-
-        </div>
-      </div>
-    </div>
-    <div class="copyright">
-      <a href="https://liudosen.github.io">liudosen.site</a> &nbsp;|&nbsp;不断前行
-    </div>
-  </div>
-</div>
-
-    
-    
-      <script src="/js/search.js"></script>
-      <script>searchInitialize("/search.json")</script>
-    
-    <script src="/js/copy-code.js"></script>
-    
-  <script type="text/javascript">
-  function HeartCurve(w, h) {
-    this.w = w;
-    this.h = h;
-    this.a = undefined;
-    this.ctx = undefined;
-    this.deg = 0;
-    this.speed = 0.4;
-    this.isPause = false;
-    this.init();
-  }
-  HeartCurve.prototype.init = function () {
-    const {
-      w,
-      h
-    } = this;
-    const canvas = document.querySelector('#heart-curve');
-    if (!canvas) throw Error('no canvas element!');
-
-    this.ctx = canvas.getContext('2d');
-    this.ctx.translate(2 * w / 3, h / 2);
-    this.ctx.lineJoin = 'round';
-    this.a = w / 6.2;
-    this.id = null;
-    return this;
-  };
-  HeartCurve.prototype._drawAxis = function () {
-    const {
-      ctx,
-      w,
-      h
-    } = this;
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "#999";
-    ctx.beginPath();
-    ctx.moveTo(-w * 2 / 3, 0);
-    ctx.lineTo(w / 3, 0);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, -h * 0.48);
-    ctx.lineTo(0, h * 0.48);
-    ctx.stroke();
-  };
-  HeartCurve.prototype._drawCure = function () {
-    const {
-      ctx,
-      a
-    } = this;
-    ctx.beginPath();
-    let x, y, deg = 0;
-    ctx.moveTo(0, 0);
-    ctx.strokeStyle = "#ff0000";
-    while (deg <= 360) {
-      const theta = deg / 180 * Math.PI;
-      r = 2 * a * (1 - Math.cos(theta));
-      x = r * Math.cos(theta);
-      y = r * Math.sin(theta);
-      ctx.lineTo(x, y);
-      deg++;
-    }
-    ctx.stroke();
-  };
-  HeartCurve.prototype.spin = function () {
-    let {
-      a,
-      w,
-      h,
-      deg,
-      ctx
-    } = this;
-    if (deg >= 360) deg = 0;
-
-    ctx.clearRect(-w / 3 * 2, -h / 2, w, h);
-    const theta = deg / 180 * Math.PI;
-    this._drawAxis();
-    ctx.lineWidth = 2;
-    this._drawCure();
-    ctx.strokeStyle = "#000";
-    ctx.beginPath();
-    ctx.arc(-a, 0, a, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(2 * a * Math.cos(theta) - a, 2 * a * Math.sin(theta), a, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.beginPath();
-    let r = 2 * a * (1 - Math.cos(theta));
-    let x = r * Math.cos(theta);
-    let y = r * Math.sin(theta);
-    ctx.arc(x, y, 3, 0, 2 * Math.PI);
-    ctx.fill();
-    if (this.isPause) return;
-
-    this.deg = deg + this.speed;
-    this.id = window.requestAnimationFrame(this.spin.bind(this));
-  };
-  HeartCurve.prototype.pause = function () {
-    this.isPause = true;
-    if (window.cancelAnimationFrame) {
-      window.cancelAnimationFrame(this.id);
-    }
-  };
-  HeartCurve.prototype.resume = function () {
-    this.isPause = false;
-    this.spin();
-  };
-
-  (function () {
-    const heartCurve = new HeartCurve(400, 400);
-    heartCurve.spin();
-    mobileAdjust(window.matchMedia("(hover:none"));
-    window.matchMedia("(hover:none)").addListener(mobileAdjust);
-
-    function mobileAdjust(media) {
-      const wallEl = document.querySelector('#wall-main')
-      if (!media.matches) {
-        heartCurve.pause();
-        wallEl.addEventListener('mouseenter', () => {
-          console.log('resume');
-          heartCurve.resume();
-        });
-        wallEl.addEventListener('mouseleave', () => {
-          console.log('pause');
-          heartCurve.pause();
-        });
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
       }
     }
-  })();
-</script>
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
   
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
   
-  <script type="text/javascript">
-    const timelineData = {"types":["life","web3"],"posts":[{"title":"WEB3世界的入口之钱包篇","path":"/2024/12/10/hello-world/","icon":"/images/icon/icon-app.svg","type":"web3","date":"2024-12-10"}]}
-    const {types, posts} = timelineData
-    listEl = document.querySelector("#timeline-list");
-
-    elRefs = getElRefs(types)
-    bindListener(types, elRefs)
-
-    setTimeout(init.bind(this, types, elRefs))
-
-    function getElRefs(types) {
-      return types.map(type => document.querySelector(`#radio-${type}`))
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Liudosen',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Liudosen" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/image/%E5%A4%B4%E5%83%8F.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/sitetime"><i class="fa-fw fas fa-hourglass-end"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fas fa-folder"></i><span> 分类</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/image/外滩.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/sitetime"><i class="fa-fw fas fa-hourglass-end"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fas fa-folder"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Liudosen</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/liudosen" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:liudosen@outlook.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/" title="WEB3世界的入口之钱包篇-中心化钱包业务">WEB3世界的入口之钱包篇-中心化钱包业务</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-12T16:00:00.000Z" title="发表于 2023-02-13 00:00:00">2023-02-13</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-13T16:12:23.563Z" title="更新于 2024-12-14 00:12:23">2024-12-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/WEB3/">WEB3</a></span></div><div class="content">钱包的一些名词概念 归集钱包（也是一种热钱包）会将各种token归集在一个钱包地址中 热钱包 在线的 冷钱包 离线的 发动交易时都要手动操作  钱包业务充值、提现、归集、热转冷、冷转热  充值首先在钱包业务层会自动化批量生成100万个地址（实际需要根据业务体量来决定的），每当剩余的钱包地址少阈值时（一般是10万），会再生成100万个地址。在交易所中用户注册完后，会分配一个地址给他。 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2023/02/01/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/" title="WEB3世界的入口之钱包篇-分类">WEB3世界的入口之钱包篇-分类</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-01-31T16:00:00.000Z" title="发表于 2023-02-01 00:00:00">2023-02-01</time><span class="article-meta-separator">|</span><i class="fas fa-history"></i><span class="article-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-13T16:06:52.267Z" title="更新于 2024-12-14 00:06:52">2024-12-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/WEB3/">WEB3</a></span></div><div class="content">从秘钥管理方式上区分一、中心化钱包的秘钥管理方式CloundHsm 秘钥不脱离环境，会进行硬件签名，一般采用ECDSA、EDDSA加密算法消息体进入机器有机器进行硬件签名，将签名后的信息吐出。一般云服务器厂商会有提供的  TEE 是一个可信任的执行环境，一般云服务厂商也会提供，它是软签名。  抽象理解：想象一个古老的城堡，这个城堡代表了TEE（Trusted Execution Environment），它被厚厚的城墙（安全措施）所包围，以保护内部的秘密（数据和代码）不被外界侵犯。     城门（初始化和验证过程）： 城堡的唯一入口是一个坚固的城门。当有人（系统重置）想要进入城堡时，他们必须出示一个特殊的令牌（RoT），这个令牌可以是一个随机的符号或者一个用特殊钥匙（非对称密钥）签名的信物。只有出示了正确的令牌，城门才会打开。       密室（密钥的生成和使用）： 城堡内部有一个密室，里面存放着城堡的宝藏（密钥）。这些密钥被用来签署和验证进出城堡的信件...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/image/%E5%A4%B4%E5%83%8F.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Liudosen</div><div class="author-info-description">liudsoen</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/liudosen"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/liudosen" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:liudosen@outlook.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/" title="WEB3世界的入口之钱包篇-中心化钱包业务"><img src="https://liudosen-picture.oss-cn-hongkong.aliyuncs.com/web3/%E9%92%B1%E5%8C%85.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WEB3世界的入口之钱包篇-中心化钱包业务"/></a><div class="content"><a class="title" href="/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/" title="WEB3世界的入口之钱包篇-中心化钱包业务">WEB3世界的入口之钱包篇-中心化钱包业务</a><time datetime="2023-02-12T16:00:00.000Z" title="发表于 2023-02-13 00:00:00">2023-02-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/01/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/" title="WEB3世界的入口之钱包篇-分类"><img src="https://liudosen-picture.oss-cn-hongkong.aliyuncs.com/web3/%E9%92%B1%E5%8C%85.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WEB3世界的入口之钱包篇-分类"/></a><div class="content"><a class="title" href="/2023/02/01/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/" title="WEB3世界的入口之钱包篇-分类">WEB3世界的入口之钱包篇-分类</a><time datetime="2023-01-31T16:00:00.000Z" title="发表于 2023-02-01 00:00:00">2023-02-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/WEB3/"><span class="card-category-list-name">WEB3</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E9%92%B1%E5%8C%85/" style="font-size: 1.1em; color: #999">钱包</a></div></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-12-13T16:37:56.615Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, 1))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
     }
-
-    function bindListener(names, els) {
-      names.map((name, i) => els[i].addEventListener('change', e => updateList(name, e.target.checked)))
-    }
-
-    function updateList(type, value) {
-      listDom
-        .filter(line => line.type === type)
-        .forEach(line => {
-          line.el.className = line
-            .el
-            .className
-            .replace(
-              /(--hidden)?$/, value
-              ? ""
-              : "--hidden");
-        });
-    }
-
-    const listDom = posts.map(t => getLine(t));
-    listEl.append(...listDom.map(i => i.el));
-
-    function getLine(data) {
-      const item = document.createElement("DIV");
-      item.className = `timeline-item-${data.type} timeline-item--hidden`;
-      item.innerHTML = `
-                          <div class="line-date">
-                          <div class="line-date-tag">${data.date}</div></div>
-                          <div class="line-anchor"></div>
-                          <div class="line-title">
-                              <img class="text-icon" src="${data.icon}" /><a class="timeline-post" href="${data.path}">${data.title}</a>
-                          </div>
-                          `;
-      return {el: item, type: data.type};
-    };
-
-    function init(names, els) {
-      names.map((name, i) => updateList(name, els[i].checked))
-    }
-  </script>
-
-  
-
-  </body>
-</html>
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  if (true) {
+    typedJSFn.init(["“人生最重要的不是所站的位置，而是所朝的方向。” —— 维克多·雨果","“生活不是等待风暴过去，而是学会在雨中跳舞。” —— 薇薇安·格林","“你不能控制他人，但你可以掌握自己。” —— 吉姆·罗恩"])
+  } else {
+    document.getElementById("subtitle").textContent = "“人生最重要的不是所站的位置，而是所朝的方向。” —— 维克多·雨果"
+  }
+}
+typedJSFn.run(subtitleType)</script></div></div></body></html>
