@@ -6,7 +6,7 @@
   <link href="https://liudosen.github.io/atom.xml" rel="self"/>
   
   <link href="https://liudosen.github.io/"/>
-  <updated>2024-12-13T16:12:23.563Z</updated>
+  <updated>2024-12-14T07:05:08.832Z</updated>
   <id>https://liudosen.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://liudosen.github.io/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/"/>
     <id>https://liudosen.github.io/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/</id>
     <published>2023-02-12T16:00:00.000Z</published>
-    <updated>2024-12-13T16:12:23.563Z</updated>
+    <updated>2024-12-14T07:05:08.832Z</updated>
     
     <content type="html"><![CDATA[<h1 id="钱包的一些名词概念"><a href="#钱包的一些名词概念" class="headerlink" title="钱包的一些名词概念"></a>钱包的一些名词概念</h1><ul><li>归集钱包（也是一种热钱包）会将各种token归集在一个钱包地址中</li><li>热钱包 在线的</li><li>冷钱包 离线的 发动交易时都要手动操作</li></ul><h1 id="钱包业务"><a href="#钱包业务" class="headerlink" title="钱包业务"></a>钱包业务</h1><p>充值、提现、归集、热转冷、冷转热</p><blockquote><h2 id="充值"><a href="#充值" class="headerlink" title="充值"></a>充值</h2><p>首先在钱包业务层会自动化批量生成100万个地址（实际需要根据业务体量来决定的），每当剩余的钱包地址少阈值时（一般是10万），会再生成100万个地址。在交易所中用户注册完后，会分配一个地址给他。  </p><p>当用户充值到到交易所钱包时，交易所会有一个扫链的服务会一直扫链上最新的区块，通过区号区块高度numb,和本地记录的区块高度numb对比就知道有没有扫过该区块。服务会读取区块中txlist,txlist里面会有很多的交易信息（from,to,data,gase,value等），当to的地址是交易所的用户地址，from是非交易所用户地址则认为充值成功，扫链服务会通知交易所充值到账。</p><p>同时在扫链服务中也会接入风控服务（防洗钱），通过匹配from地址来确定入金地址的合法性（存在黑金的地址）。</p></blockquote><blockquote><h2 id="提现"><a href="#提现" class="headerlink" title="提现"></a>提现</h2><p>首先用户发起体现的时候会将消息给到业务层，业务层会同时推送给风控系统与钱包系统，业务层会创建一个提现任务并落表，风控系统会去修改提现任务的状态，修改成风控通过。定时任务扫到已经通过风控的任务，会去从签名机中拉取签名。</p><p>用户体现的时候是需要选择走哪种网络的，也就知道了走了哪条公链了，包括签名机拉取签名也是从对应的公链出的。<br>&#x2F;&#x2F; todo 6 10:47</p></blockquote>]]></content>
     
@@ -46,7 +46,7 @@
     <link href="https://liudosen.github.io/2023/02/01/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/"/>
     <id>https://liudosen.github.io/2023/02/01/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/</id>
     <published>2023-01-31T16:00:00.000Z</published>
-    <updated>2024-12-13T16:06:52.267Z</updated>
+    <updated>2024-12-14T07:05:13.953Z</updated>
     
     <content type="html"><![CDATA[<h1 id="从秘钥管理方式上区分"><a href="#从秘钥管理方式上区分" class="headerlink" title="从秘钥管理方式上区分"></a>从秘钥管理方式上区分</h1><h2 id="一、中心化钱包的秘钥管理方式"><a href="#一、中心化钱包的秘钥管理方式" class="headerlink" title="一、中心化钱包的秘钥管理方式"></a>一、中心化钱包的秘钥管理方式</h2><h3 id="CloundHsm"><a href="#CloundHsm" class="headerlink" title="CloundHsm"></a>CloundHsm</h3><ul><li>秘钥不脱离环境，会进行硬件签名，一般采用ECDSA、EDDSA加密算法<br>消息体进入机器有机器进行硬件签名，将签名后的信息吐出。<br>一般云服务器厂商会有提供的</li></ul><h3 id="TEE"><a href="#TEE" class="headerlink" title="TEE"></a>TEE</h3><ul><li>是一个可信任的执行环境，一般云服务厂商也会提供，它是软签名。</li></ul><h4 id="抽象理解："><a href="#抽象理解：" class="headerlink" title="抽象理解："></a>抽象理解：</h4><p>想象一个古老的城堡，这个城堡代表了TEE（Trusted Execution Environment），它被厚厚的城墙（安全措施）所包围，以保护内部的秘密（数据和代码）不被外界侵犯。  </p><blockquote><ul><li>城门（初始化和验证过程）：<ul><li>城堡的唯一入口是一个坚固的城门。当有人（系统重置）想要进入城堡时，他们必须出示一个特殊的令牌（RoT），这个令牌可以是一个随机的符号或者一个用特殊钥匙（非对称密钥）签名的信物。只有出示了正确的令牌，城门才会打开。</li></ul></li></ul></blockquote><blockquote><ul><li>密室（密钥的生成和使用）：<ul><li>城堡内部有一个密室，里面存放着城堡的宝藏（密钥）。这些密钥被用来签署和验证进出城堡的信件 （数据和应用程序），确保只有可信的消息能够通过。</li></ul></li></ul></blockquote><blockquote><ul><li>城墙上的守卫（签名算法的应用）：<ul><li>城墙上站着守卫（TEE处理器），他们检查每一个进出的人（应用程序）是否持有有效的签名和认证 （签名和加密）。只有那些持有有效认证的人才能进入城堡。</li></ul></li></ul></blockquote><blockquote><ul><li>信使（远程认证）：<ul><li>有时，城堡需要与外界通信以验证身份。信使（TEE组件）会带着密封的信件（签名消息）出去，并在回来时带回一个回执（认证响应）。</li></ul></li></ul></blockquote><blockquote><ul><li>密信（签名和加密）： <ul><li>信使在发送信息之前，会用一个特殊的墨水（签名算法）写信，并用一个秘密的蜡封（加密）封住信件，确保信件在传递过程中不被篡改。</li></ul></li></ul></blockquote><blockquote><ul><li>城门守卫的检查（验证和完成认证）：<ul><li>当信使带着回执回到城堡时，城门守卫会检查回执上的蜡封（验证签名）。如果蜡封完好，他们会接受信使的回执，并允许信使进入城堡。</li></ul></li></ul></blockquote><blockquote><ul><li>密谈（共享会话密钥的生成和使用）：<ul><li>一旦信使进入城堡，他们会与城堡的主人在密室中进行密谈（共享会话密钥的生成）。这个密谈的内容（会话密钥）只有信使和城堡主人知道，他们用这个密谈的内容来确保未来的通信安全。</li></ul></li></ul></blockquote><h4 id="KMS-秘钥配置中心"><a href="#KMS-秘钥配置中心" class="headerlink" title="KMS 秘钥配置中心"></a>KMS 秘钥配置中心</h4><ul><li>用环境变量的方式将秘钥加密后配置好，外部讲来取秘钥的时候进行鉴权认证。</li></ul><h4 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h4><ul><li>文件、本地数据库</li></ul><h4 id="安全级别"><a href="#安全级别" class="headerlink" title="安全级别"></a>安全级别</h4><ul><li>CloundHsm &gt; Tee &gt; Kms &gt; Local</li></ul><h2 id="二、去中心钱包的秘钥管理"><a href="#二、去中心钱包的秘钥管理" class="headerlink" title="二、去中心钱包的秘钥管理"></a>二、去中心钱包的秘钥管理</h2><p>一般都是本地加密保存，使用文档型数据 例如：SqlLite</p><h2 id="三、硬件钱包"><a href="#三、硬件钱包" class="headerlink" title="三、硬件钱包"></a>三、硬件钱包</h2><p>硬件钱包一般是一个芯片，芯片上一般有三个处理器，分别用于加密、签名、存储。</p><h3 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h3><ul><li>先通过芯片内部的处理器生成一对公私钥，将私钥加密后会保存在存储处理器中，将公钥返回出去。  （一般情况下用户需要使用公钥生成钱包地址）</li><li>当用户需要发送消息时，消息会通过芯片中签名处理进行签名，返回当前消息的Signature(包含RSV)</li></ul><h2 id="四、MPC托管钱包"><a href="#四、MPC托管钱包" class="headerlink" title="四、MPC托管钱包"></a>四、MPC托管钱包</h2><ul><li>MPC是一种网络，网络中有很多的节点。假设MPC网络中是总节点6,门限值4（一般是3分之2大于3分之1）。(底层算法是一个数学问题，多项求解)</li><li>当用户需要创建钱包时，网络中的节点会进行多轮的生成，各个节点都一个秘钥切片，最后会返回一个聚合公钥（用户拿此公钥生成钱包地址）。假设节点有6个，用户可能只需要寻找任意4节点就可以恢复出私钥。所以当用户需要签名时，请求进来后任意4个进行签名最终会返回一个signature。</li></ul>]]></content>
     
