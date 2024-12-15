@@ -5,18 +5,38 @@
     <url>/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/</url>
     <content><![CDATA[<h1 id="钱包的一些名词概念"><a href="#钱包的一些名词概念" class="headerlink" title="钱包的一些名词概念"></a>钱包的一些名词概念</h1><ul>
 <li>归集钱包（也是一种热钱包）会将各种token归集在一个钱包地址中</li>
-<li>热钱包 在线的</li>
-<li>冷钱包 离线的 发动交易时都要手动操作</li>
+<li>热钱包 秘钥管理是在PC或者移动端，有在互联网环境暴露的风险</li>
+<li>冷钱包 秘钥的管理在离线USB设备或者其它离线设备中，需要多人共同认证使用 发动交易时都要手动操作</li>
 </ul>
-<h1 id="钱包业务"><a href="#钱包业务" class="headerlink" title="钱包业务"></a>钱包业务</h1><p>充值、提现、归集、热转冷、冷转热</p>
+<h1 id="钱包业务"><a href="#钱包业务" class="headerlink" title="钱包业务"></a>钱包业务</h1><p>充值、提现、归集、热转冷、冷转热、回滚</p>
 <blockquote>
 <h2 id="充值"><a href="#充值" class="headerlink" title="充值"></a>充值</h2><p>首先在钱包业务层会自动化批量生成100万个地址（实际需要根据业务体量来决定的），每当剩余的钱包地址少阈值时（一般是10万），会再生成100万个地址。在交易所中用户注册完后，会分配一个地址给他。  </p>
 <p>当用户充值到到交易所钱包时，交易所会有一个扫链的服务会一直扫链上最新的区块，通过区号区块高度numb,和本地记录的区块高度numb对比就知道有没有扫过该区块。服务会读取区块中txlist,txlist里面会有很多的交易信息（from,to,data,gase,value等），当to的地址是交易所的用户地址，from是非交易所用户地址则认为充值成功，扫链服务会通知交易所充值到账。</p>
 <p>同时在扫链服务中也会接入风控服务（防洗钱），通过匹配from地址来确定入金地址的合法性（存在黑金的地址）。</p>
 </blockquote>
 <blockquote>
-<h2 id="提现"><a href="#提现" class="headerlink" title="提现"></a>提现</h2><p>首先用户发起体现的时候会将消息给到业务层，业务层会同时推送给风控系统与钱包系统，业务层会创建一个提现任务并落表，风控系统会去修改提现任务的状态，修改成风控通过。定时任务扫到已经通过风控的任务，会去从签名机中拉取签名。</p>
-<p>用户体现的时候是需要选择走哪种网络的，也就知道了走了哪条公链了，包括签名机拉取签名也是从对应的公链出的。<br>&#x2F;&#x2F; todo 6 10:47</p>
+<h2 id="提现"><a href="#提现" class="headerlink" title="提现"></a>提现</h2><p>首先用户发起体现的时候会将消息给到业务层，业务层会同时推送给风控系统与钱包系统，业务层会创建一个提现任务并落表，风控系统会去修改提现任务的状态，修改成风控通过。定时任务扫到已经通过风控的任务，会去从签名机中拉取签名并构建交易。</p>
+<p>用户提现的时候是需要选择走哪种网络的，也就知道了走了哪条公链了，签名机会返回对应公链的签名RSV。有了RSV和交易元数据，就可以构建出JSON-RPC的请求报文。</p>
+<p>最后扫链服务会检测该笔交易是否已经上链完成，如果完成了会通知业务层。</p>
+</blockquote>
+<h2 id="归集"><a href="#归集" class="headerlink" title="归集"></a>归集</h2><blockquote>
+<p>交易所通常会有归集钱包和热钱包，多个用户充值的token会经过归集任务，将token统一进入多个热钱包或归集钱包中，归集钱包和热钱包可以同一个，热钱包地址可以是一个也可以多个（一般都是一个）。在体现流程中交易所出金的钱包就是热钱包，从热钱包提取token给用户发起的目标地址。</p>
+<p>归集任务中 form地址为交易所中用户地址 to地址为交易所热钱包地址</p>
+</blockquote>
+<h2 id="热转冷"><a href="#热转冷" class="headerlink" title="热转冷"></a>热转冷</h2><blockquote>
+<p>当个别热钱包资金太多了大于一点阈值，为了安全考虑需要转入冷钱包中。（本质是一种定时任务）</p>
+<p>判断逻辑 from地址是交易所的热钱包地址 to地址是冷钱包地址</p>
+<p>扫链确认后，需要在业务层记录这一数据流转，用于对账。</p>
+</blockquote>
+<h2 id="冷转热"><a href="#冷转热" class="headerlink" title="冷转热"></a>冷转热</h2><blockquote>
+<p>热钱包监控系统发现热钱包里的token小于一定的阈值的时候，会发出告警。通知冷钱包的管理员们。</p>
+<p>同样扫链服务会继续扫块，发现 form地址是冷钱包地址 to地址是热钱包地址。</p>
+<p>通知业务层热钱包到账</p>
+</blockquote>
+<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><blockquote>
+<p>扫链服务会一直监听链上的最新区块(latesBlock)以及本地的最新区块(localBlock)</p>
+<p>当前localBlock大于latesBlock，这个时候需要进行回滚。需要进行交易的回滚，回滚区块位 lcoalBlock - latesBlock</p>
+<p>将相关区块的交易回滚掉，通知业务层。回调的交易如果为充值交易的：需要将相关的入账的数据清除，包含业务层和钱包层。</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -28,7 +48,7 @@
   </entry>
   <entry>
     <title>WEB3世界的入口之钱包篇-分类</title>
-    <url>/2023/02/01/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/</url>
+    <url>/2023/02/10/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="从秘钥管理方式上区分"><a href="#从秘钥管理方式上区分" class="headerlink" title="从秘钥管理方式上区分"></a>从秘钥管理方式上区分</h1><h2 id="一、中心化钱包的秘钥管理方式"><a href="#一、中心化钱包的秘钥管理方式" class="headerlink" title="一、中心化钱包的秘钥管理方式"></a>一、中心化钱包的秘钥管理方式</h2><h3 id="CloundHsm"><a href="#CloundHsm" class="headerlink" title="CloundHsm"></a>CloundHsm</h3><ul>
 <li>秘钥不脱离环境，会进行硬件签名，一般采用ECDSA、EDDSA加密算法<br>消息体进入机器有机器进行硬件签名，将签名后的信息吐出。<br>一般云服务器厂商会有提供的</li>
 </ul>
@@ -111,6 +131,126 @@
 <li>MPC是一种网络，网络中有很多的节点。假设MPC网络中是总节点6,门限值4（一般是3分之2大于3分之1）。(底层算法是一个数学问题，多项求解)</li>
 <li>当用户需要创建钱包时，网络中的节点会进行多轮的生成，各个节点都一个秘钥切片，最后会返回一个聚合公钥（用户拿此公钥生成钱包地址）。假设节点有6个，用户可能只需要寻找任意4节点就可以恢复出私钥。所以当用户需要签名时，请求进来后任意4个进行签名最终会返回一个signature。</li>
 </ul>
+]]></content>
+      <categories>
+        <category>WEB3</category>
+      </categories>
+      <tags>
+        <tag>钱包</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WEB3世界的入口之钱包篇-去中心化钱包业务流程</title>
+    <url>/2023/02/15/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="去中心化钱包业务"><a href="#去中心化钱包业务" class="headerlink" title="去中心化钱包业务"></a>去中心化钱包业务</h1><h2 id="名词说明"><a href="#名词说明" class="headerlink" title="名词说明"></a>名词说明</h2><blockquote>
+<p>助记词：是一组单词，简化私钥记忆，使用友好的方式帮助用户备份整个钱包  </p>
+</blockquote>
+<blockquote>
+<p>BIP协议：</p>
+<ul>
+<li>BIP32：公共派生推导，使用BIP44或BIP86的路径进行</li>
+<li>BIP39：助记词协议，整个协议里包含了2048个单词，生成的助记词个数12、15、18、21、24</li>
+<li>BIP44：推到路径</li>
+<li>BIP86：另一种推到路径</li>
+</ul>
+<p>sqllite：文档型数据库  </p>
+<p>AES：安全级别比较高的对称加密，运算效率也比较快的单秘钥加密</p>
+<p>账户TAG：用户标识 用户充值的的时候填写tag,交易所就可以识别这个tag,可以省一笔一笔归集的gas</p>
+</blockquote>
+<blockquote>
+<h3 id="拓展知识"><a href="#拓展知识" class="headerlink" title="拓展知识"></a>拓展知识</h3><p>门限共享秘密算法：将信息拆分成n份，设置K份可以恢复，k位机门限值  </p>
+<ul>
+<li>门限共享：拆分过程</li>
+<li>逆门限共享：恢复过程</li>
+<li>异或算法 逆异或算法</li>
+</ul>
+</blockquote>
+<h2 id="经典去中心化钱包（HD钱包）"><a href="#经典去中心化钱包（HD钱包）" class="headerlink" title="经典去中心化钱包（HD钱包）"></a>经典去中心化钱包（HD钱包）</h2><h3 id="地址生成"><a href="#地址生成" class="headerlink" title="地址生成"></a>地址生成</h3><blockquote>
+<p>1.通过用户输入的钱包名词与密码<br>2.调用BIP39生成助记词<br>3.使用BIP44的路径走BIP32进行推导生成主私钥、公钥<br>4.将公私钥进行AES加密存入Sqllite本地数据库中<br>5.返回给用户助记词  </p>
+</blockquote>
+<blockquote>
+<p>创建多账户<br>1.通过钱包的主私钥修改推导路径中不同的index生成派生私钥与派生公钥<br>2.通过派生公钥创建账户地址</p>
+</blockquote>
+<h3 id="收款"><a href="#收款" class="headerlink" title="收款"></a>收款</h3><blockquote>
+<p>出示对应公链网络的账户地址即可（可以做成二维码）</p>
+</blockquote>
+<h3 id="转账"><a href="#转账" class="headerlink" title="转账"></a>转账</h3><blockquote>
+<p>使用户对应的公链账户进行转账，主要是用对应账户的派生私钥签名，然后构建交易请求即可。<br>交易结束后直接在sqllite中修改余额数据</p>
+</blockquote>
+<h3 id="闪兑"><a href="#闪兑" class="headerlink" title="闪兑"></a>闪兑</h3><blockquote>
+<p>使用js调对应厂商提供的SDK就可以了</p>
+</blockquote>
+<h3 id="NFT"><a href="#NFT" class="headerlink" title="NFT"></a>NFT</h3><blockquote>
+<p>主要是展示对应图片和视频，两种方式调用NftSanApi或TheWeb3IndexerApi<br>要么就扫链拉去对应的图片访问地址</p>
+</blockquote>
+<h3 id="质押"><a href="#质押" class="headerlink" title="质押"></a>质押</h3><blockquote>
+<p>走Uniswap、Compound、等DEX交易所智能合约<br>或者走各大矿池平台也可以</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>WEB3</category>
+      </categories>
+      <tags>
+        <tag>钱包</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程</title>
+    <url>/2023/02/17/%E7%A1%AC%E4%BB%B6%E4%B8%8EMPC%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="硬件钱包业务流程"><a href="#硬件钱包业务流程" class="headerlink" title="硬件钱包业务流程"></a>硬件钱包业务流程</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>芯片：购买</li>
+<li>开模：需要开模，然后量产</li>
+<li>硬件钱包和软件通信方式：<ul>
+<li>蓝牙</li>
+<li>NFC</li>
+<li>com</li>
+</ul>
+</li>
+</ul>
+<h2 id="芯片模块"><a href="#芯片模块" class="headerlink" title="芯片模块"></a>芯片模块</h2><ul>
+<li>通信、签名、加密、存储</li>
+</ul>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>配套软件发起keygen指令 携带 pin码或者指纹信息等，通信模块会进行认证。<br>通信模块会生成keypair,给到签名模块，生成公钥私钥，私钥进行进入加密模块进行加密。<br>加密过后会存入存储模块，最终返回公钥出去。 </p>
+<p>签名流程通过通信模块后进入签名模块即可，签名模块中也是预售烧录好的签名逻辑代码。</p>
+<h2 id="ECDSA-和-EDDSA-算法"><a href="#ECDSA-和-EDDSA-算法" class="headerlink" title="ECDSA 和 EDDSA 算法"></a>ECDSA 和 EDDSA 算法</h2><h1 id="MPC钱包业务流程"><a href="#MPC钱包业务流程" class="headerlink" title="MPC钱包业务流程"></a>MPC钱包业务流程</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p>MPC: 安全的多方计算<br>TSS: 门限签名<br>MPC网络与TSS网络是一个意思</p>
+<h2 id="MPC算法包"><a href="#MPC算法包" class="headerlink" title="MPC算法包"></a>MPC算法包</h2><ul>
+<li>Zengeo：Rust写的<ul>
+<li>GG18:<ul>
+<li>keygen: 5轮交互</li>
+<li>Sign: 9轮交互</li>
+</ul>
+</li>
+<li>GG20: <ul>
+<li>keygen：5轮交互</li>
+<li>sign：7轮交互</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>币安TSS lib：golang写的<ul>
+<li>GG18</li>
+<li>GG20</li>
+</ul>
+</li>
+</ul>
+<p>如何选择使用哪中MPC算法？<br>需要结合实际团队的技术栈选。</p>
+<h2 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h2><p>运行环境：TEE</p>
+<blockquote>
+<p>在TEE环境中会有N个节点，这些节点之间的通信是在TEE环境内部使用P2P通信。</p>
+</blockquote>
+<p>业务模块：</p>
+<blockquote>
+<p>钱包服务、MPC管理器、MPC网络<br>核心业务主要是秘钥生成和签名</p>
+</blockquote>
+<p>Keygen：</p>
+<blockquote>
+<p>由钱包服务发起到MPC管理，MPC管理器会将请求打入到MPC网络中。MPC网络中的各节点会生成秘钥分片，最终生成一个聚合公钥返回给MPC管理器。MPC管理器会将这个聚合公钥返回给钱包服务。</p>
+</blockquote>
+<p>Sign:</p>
+<blockquote>
+<p>钱包服务将32位未签名的消息发送给MPC管理器，MPC管理器会将这个消息继续发给MPC网络，用MPC网络中的各节点进行签名，MPC网络可以返回最中的签名报文，也可以返回给节点的签名由MPC管理器自己聚合。</p>
+</blockquote>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>MPC钱包生成秘钥的时候入参是什么，可以实现单链多账户吗？</p>
 ]]></content>
       <categories>
         <category>WEB3</category>
