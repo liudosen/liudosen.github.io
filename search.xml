@@ -362,4 +362,19 @@ AES: 安全的，复杂度币3DES低，效率高，在传统Web2和web3都用得
         <tag>密码学</tag>
       </tags>
   </entry>
+  <entry>
+    <title>比特币网络账户模型</title>
+    <url>/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="BTC网络账户模型"><a href="#BTC网络账户模型" class="headerlink" title="BTC网络账户模型"></a>BTC网络账户模型</h1><h2 id="普通账户"><a href="#普通账户" class="headerlink" title="普通账户"></a>普通账户</h2><p>和传统银行的账户一样，有账户体，余额，转帐，对账户进行操作。<br>转入：账户余额加上转入金额<br>转出：账户余额减去对应的金额</p>
+<h2 id="UTXO模型"><a href="#UTXO模型" class="headerlink" title="UTXO模型"></a>UTXO模型</h2><p>首先账户余额为多笔转入信息中金额的和。<br>转出金额时需要选择单笔或多笔入账信息，将这些入账信息里面的金额进行求和并且要大于等于转出金额加手续费。<br>此时相当于我提取了多笔入账，进行转账。转账时也可以选择多个转出地址，每个地址转多少。<br>综上所述：UTXO模型本质就是围绕着N条入账信息和N条转账信息进行账户的余额维护。</p>
+]]></content>
+      <categories>
+        <category>WEB3</category>
+      </categories>
+      <tags>
+        <tag>账户模型</tag>
+        <tag>公链</tag>
+        <tag>BTC</tag>
+      </tags>
+  </entry>
 </search>

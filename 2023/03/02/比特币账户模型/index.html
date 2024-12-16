@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="dark"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>比特币网络账户模型 | Liudosen</title><meta name="author" content="Liudosen"><meta name="copyright" content="Liudosen"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#0d0d0d"><meta name="description" content="BTC网络账户模型普通账户和传统银行的账户一样，有账户体，余额，转帐，对账户进行操作。转入：账户余额加上转入金额转出：账户余额减去对应的金额 UTXO模型首先账户余额为多笔转入信息中金额的和。转出金额时需要选择单笔或多笔入账信息，将这些入账信息里面的金额进行求和并且要大于等于转出金额加手续费。此时相当于我提取了多笔入账，进行转账。转账时也可以选择多个转出地址，每个地址转多少。综上所述：UTXO模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比特币网络账户模型">
+<meta property="og:url" content="https://liudosen.github.io/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Liudosen">
+<meta property="og:description" content="BTC网络账户模型普通账户和传统银行的账户一样，有账户体，余额，转帐，对账户进行操作。转入：账户余额加上转入金额转出：账户余额减去对应的金额 UTXO模型首先账户余额为多笔转入信息中金额的和。转出金额时需要选择单笔或多笔入账信息，将这些入账信息里面的金额进行求和并且要大于等于转出金额加手续费。此时相当于我提取了多笔入账，进行转账。转账时也可以选择多个转出地址，每个地址转多少。综上所述：UTXO模型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://liudosen.github.io/image/a.jpg">
+<meta property="article:published_time" content="2023-03-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-01T16:00:00.000Z">
+<meta property="article:author" content="Liudosen">
+<meta property="article:tag" content="账户模型">
+<meta property="article:tag" content="公链">
+<meta property="article:tag" content="BTC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://liudosen.github.io/image/a.jpg"><link rel="shortcut icon" href="/image/code.png"><link rel="canonical" href="https://liudosen.github.io/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '比特币网络账户模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Liudosen" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/image/%E5%A4%B4%E5%83%8F.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/sitetime"><i class="fa-fw fas fa-hourglass-end"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fas fa-folder"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/image/a.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">比特币网络账户模型</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/sitetime"><i class="fa-fw fas fa-hourglass-end"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fas fa-folder"></i><span> 分类</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">比特币网络账户模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-01T16:00:00.000Z" title="发表于 2023-03-02 00:00:00">2023-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-01T16:00:00.000Z" title="更新于 2023-03-02 00:00:00">2023-03-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/WEB3/">WEB3</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="BTC网络账户模型"><a href="#BTC网络账户模型" class="headerlink" title="BTC网络账户模型"></a>BTC网络账户模型</h1><h2 id="普通账户"><a href="#普通账户" class="headerlink" title="普通账户"></a>普通账户</h2><p>和传统银行的账户一样，有账户体，余额，转帐，对账户进行操作。<br>转入：账户余额加上转入金额<br>转出：账户余额减去对应的金额</p>
+<h2 id="UTXO模型"><a href="#UTXO模型" class="headerlink" title="UTXO模型"></a>UTXO模型</h2><p>首先账户余额为多笔转入信息中金额的和。<br>转出金额时需要选择单笔或多笔入账信息，将这些入账信息里面的金额进行求和并且要大于等于转出金额加手续费。<br>此时相当于我提取了多笔入账，进行转账。转账时也可以选择多个转出地址，每个地址转多少。<br>综上所述：UTXO模型本质就是围绕着N条入账信息和N条转账信息进行账户的余额维护。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/">账户模型</a><a class="post-meta__tags" href="/tags/%E5%85%AC%E9%93%BE/">公链</a><a class="post-meta__tags" href="/tags/BTC/">BTC</a></div><div class="post-share"><div class="social-share" data-image="/image/a.jpg" data-sites="wechat"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2023/02/17/%E7%A1%AC%E4%BB%B6%E4%B8%8EMPC%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/" title="WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程"><img class="cover" src="/image/a.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程</div></div><div class="info-2"><div class="info-item-1">硬件钱包业务流程概述 芯片：购买 开模：需要开模，然后量产 硬件钱包和软件通信方式： 蓝牙 NFC com    芯片模块 通信、签名、加密、存储  流程配套软件发起keygen指令 携带 pin码或者指纹信息等，通信模块会进行认证。通信模块会生成keypair,给到签名模块，生成公钥私钥，私钥进行进入加密模块进行加密。加密过后会存入存储模块，最终返回公钥出去。  签名流程通过通信模块后进入签名模块即可，签名模块中也是预售烧录好的签名逻辑代码。 ECDSA 和 EDDSA 算法MPC钱包业务流程概述MPC: 安全的多方计算TSS: 门限签名MPC网络与TSS网络是一个意思 MPC算法包 Zengeo：Rust写的 GG18: keygen: 5轮交互 Sign: 9轮交互   GG20:  keygen：5轮交互 sign：7轮交互     币安TSS...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/image/%E5%A4%B4%E5%83%8F.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Liudosen</div><div class="author-info-description">liudsoen</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/liudosen"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/liudosen" rel="external nofollow noreferrer" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:liudosen@outlook.com" rel="external nofollow noreferrer" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BTC%E7%BD%91%E7%BB%9C%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B"><span class="toc-text">BTC网络账户模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E8%B4%A6%E6%88%B7"><span class="toc-text">普通账户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UTXO%E6%A8%A1%E5%9E%8B"><span class="toc-text">UTXO模型</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/" title="比特币网络账户模型"><img src="/image/a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="比特币网络账户模型"/></a><div class="content"><a class="title" href="/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/" title="比特币网络账户模型">比特币网络账户模型</a><time datetime="2023-03-01T16:00:00.000Z" title="发表于 2023-03-02 00:00:00">2023-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/17/%E7%A1%AC%E4%BB%B6%E4%B8%8EMPC%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/" title="WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程"><img src="/image/a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程"/></a><div class="content"><a class="title" href="/2023/02/17/%E7%A1%AC%E4%BB%B6%E4%B8%8EMPC%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/" title="WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程">WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程</a><time datetime="2023-02-16T16:00:00.000Z" title="发表于 2023-02-17 00:00:00">2023-02-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/15/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/" title="WEB3世界的入口之钱包篇-去中心化钱包业务流程"><img src="/image/a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WEB3世界的入口之钱包篇-去中心化钱包业务流程"/></a><div class="content"><a class="title" href="/2023/02/15/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/" title="WEB3世界的入口之钱包篇-去中心化钱包业务流程">WEB3世界的入口之钱包篇-去中心化钱包业务流程</a><time datetime="2023-02-14T16:00:00.000Z" title="发表于 2023-02-15 00:00:00">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="密码学基础"><img src="/image/a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="密码学基础"/></a><div class="content"><a class="title" href="/2023/02/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="密码学基础">密码学基础</a><time datetime="2023-02-14T16:00:00.000Z" title="发表于 2023-02-15 00:00:00">2023-02-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/" title="WEB3世界的入口之钱包篇-中心化钱包业务"><img src="/image/a.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WEB3世界的入口之钱包篇-中心化钱包业务"/></a><div class="content"><a class="title" href="/2023/02/13/%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1/" title="WEB3世界的入口之钱包篇-中心化钱包业务">WEB3世界的入口之钱包篇-中心化钱包业务</a><time datetime="2023-02-12T16:00:00.000Z" title="发表于 2023-02-13 00:00:00">2023-02-13</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/image/a.jpg);"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By Liudosen</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人生就像心电图，总是波峰波谷。</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div></div></body></html>

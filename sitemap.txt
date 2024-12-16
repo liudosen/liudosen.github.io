@@ -1,6 +1,7 @@
 https://liudosen.github.io/categories/index.html
 https://liudosen.github.io/sitetime/index.html
 https://liudosen.github.io/tags/index.html
+https://liudosen.github.io/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/
 https://liudosen.github.io/2023/02/17/%E7%A1%AC%E4%BB%B6%E4%B8%8EMPC%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/
 https://liudosen.github.io/2023/02/15/%E5%8E%BB%E4%B8%AD%E5%BF%83%E5%8C%96%E9%92%B1%E5%8C%85%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B/
 https://liudosen.github.io/2023/02/15/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/
@@ -9,4 +10,7 @@ https://liudosen.github.io/2023/02/10/%E9%92%B1%E5%8C%85%E7%B1%BB%E5%9E%8B/
 https://liudosen.github.io/
 https://liudosen.github.io/tags/%E9%92%B1%E5%8C%85/
 https://liudosen.github.io/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/
+https://liudosen.github.io/tags/%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/
+https://liudosen.github.io/tags/%E5%85%AC%E9%93%BE/
+https://liudosen.github.io/tags/BTC/
 https://liudosen.github.io/categories/WEB3/

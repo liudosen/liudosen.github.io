@@ -6,7 +6,7 @@
   <link href="https://liudosen.github.io/atom.xml" rel="self"/>
   
   <link href="https://liudosen.github.io/"/>
-  <updated>2023-02-16T16:00:00.000Z</updated>
+  <updated>2023-03-01T16:00:00.000Z</updated>
   <id>https://liudosen.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>比特币网络账户模型</title>
+    <link href="https://liudosen.github.io/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://liudosen.github.io/2023/03/02/%E6%AF%94%E7%89%B9%E5%B8%81%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/</id>
+    <published>2023-03-01T16:00:00.000Z</published>
+    <updated>2023-03-01T16:00:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="BTC网络账户模型"><a href="#BTC网络账户模型" class="headerlink" title="BTC网络账户模型"></a>BTC网络账户模型</h1><h2 id="普通账户"><a href="#普通账户" class="headerlink" title="普通账户"></a>普通账户</h2><p>和传统银行的账户一样，有账户体，余额，转帐，对账户进行操作。<br>转入：账户余额加上转入金额<br>转出：账户余额减去对应的金额</p><h2 id="UTXO模型"><a href="#UTXO模型" class="headerlink" title="UTXO模型"></a>UTXO模型</h2><p>首先账户余额为多笔转入信息中金额的和。<br>转出金额时需要选择单笔或多笔入账信息，将这些入账信息里面的金额进行求和并且要大于等于转出金额加手续费。<br>此时相当于我提取了多笔入账，进行转账。转账时也可以选择多个转出地址，每个地址转多少。<br>综上所述：UTXO模型本质就是围绕着N条入账信息和N条转账信息进行账户的余额维护。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;BTC网络账户模型&quot;&gt;&lt;a href=&quot;#BTC网络账户模型&quot; class=&quot;headerlink&quot; title=&quot;BTC网络账户模型&quot;&gt;&lt;/a&gt;BTC网络账户模型&lt;/h1&gt;&lt;h2 id=&quot;普通账户&quot;&gt;&lt;a href=&quot;#普通账户&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    <category term="WEB3" scheme="https://liudosen.github.io/categories/WEB3/"/>
+    
+    
+    <category term="账户模型" scheme="https://liudosen.github.io/tags/%E8%B4%A6%E6%88%B7%E6%A8%A1%E5%9E%8B/"/>
+    
+    <category term="公链" scheme="https://liudosen.github.io/tags/%E5%85%AC%E9%93%BE/"/>
+    
+    <category term="BTC" scheme="https://liudosen.github.io/tags/BTC/"/>
+    
+  </entry>
   
   <entry>
     <title>WEB3世界的入口之钱包篇-硬件与MPC钱包业务流程</title>
